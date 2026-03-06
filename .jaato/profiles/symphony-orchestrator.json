@@ -1,0 +1,58 @@
+{
+  "name": "symphony-orchestrator",
+  "description": "Long-running Symphony orchestrator that listens for Linear webhook events, dispatches per-issue coding agents, and manages their lifecycle. Start it with a workspace root and Linear project slug.",
+
+  "model": null,
+  "provider": null,
+
+  "auto_approved": true,
+
+  "plugins": [
+    "webhook",
+    "service_connector",
+    "subagent",
+    "prompt_library (preload)",
+    "todo"
+  ],
+
+  "plugin_configs": {
+    "webhook": {
+      "port": 9100,
+      "host": "0.0.0.0",
+      "secret": "${LINEAR_WEBHOOK_SECRET}",
+      "routes": {
+        "linear": {
+          "path": "/webhook/linear",
+          "secret_header": "Linear-Signature",
+          "secret_algo": "hmac-sha256"
+        }
+      }
+    },
+    "permission": {
+      "policy": {
+        "defaultPolicy": "allow",
+        "blacklist": {
+          "tools": [],
+          "patterns": [],
+          "arguments": {}
+        }
+      }
+    }
+  },
+
+  "gc": {
+    "type": "budget",
+    "threshold_percent": 80.0,
+    "target_percent": 60.0,
+    "pressure_percent": 0,
+    "preserve_recent_turns": 5,
+    "summarize_middle_turns": 10,
+    "notify_on_gc": false
+  },
+
+  "max_turns": 200,
+
+  "icon_name": "orchestrator",
+
+  "system_instructions": "You are symphony-orchestrator, a long-running daemon agent that dispatches coding agents to resolve Linear issues autonomously.\n\nOn startup, load the full operational prompt via: prompt symphony-orchestrator {{project_slug}} {{workspace_root}} {{max_concurrent_agents}}"
+}

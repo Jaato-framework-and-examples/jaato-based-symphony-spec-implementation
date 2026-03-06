@@ -1,0 +1,73 @@
+{
+  "name": "symphony-worker",
+  "description": "Per-issue coding agent spawned by the Symphony orchestrator. Works in an isolated workspace directory to resolve a single Linear issue: reads the codebase, implements a fix with tests, commits, and pushes a branch.",
+
+  "model": null,
+  "provider": null,
+
+  "auto_approved": true,
+
+  "plugins": [
+    "cli",
+    "file_edit",
+    "lsp (preload)",
+    "filesystem_query",
+    "ast_search (preload)",
+    "service_connector",
+    "todo"
+  ],
+
+  "plugin_configs": {
+    "permission": {
+      "policy": {
+        "defaultPolicy": "allow",
+        "sanitization": {
+          "enabled": true,
+          "block_shell_metacharacters": true,
+          "block_dangerous_commands": true,
+          "allowed_dangerous_commands": [],
+          "path_scope": {
+            "enabled": true,
+            "allowed_roots": ["."],
+            "block_absolute": true,
+            "block_parent_traversal": true,
+            "allow_home": false,
+            "allow_tmp": true
+          }
+        },
+        "blacklist": {
+          "tools": [],
+          "patterns": [],
+          "arguments": {
+            "cli_based_tool": {
+              "command": [
+                "git push origin main",
+                "git push origin master",
+                "git push origin develop",
+                "git push -f",
+                "git push --force",
+                "rm -rf /",
+                "sudo",
+                "shutdown",
+                "reboot"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "gc": {
+    "type": "budget",
+    "threshold_percent": 80.0,
+    "target_percent": 60.0,
+    "pressure_percent": 0,
+    "preserve_recent_turns": 5,
+    "notify_on_gc": false
+  },
+
+  "max_turns": 30,
+
+  "icon_name": "code_assistant"
+}

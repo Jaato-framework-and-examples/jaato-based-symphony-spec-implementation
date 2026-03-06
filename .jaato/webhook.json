@@ -1,0 +1,12 @@
+{
+  "port": 9100,
+  "host": "0.0.0.0",
+  "secret": "${LINEAR_WEBHOOK_SECRET}",
+  "routes": {
+    "linear": {
+      "path": "/webhook/linear",
+      "secret_header": "Linear-Signature",
+      "secret_algo": "hmac-sha256"
+    }
+  }
+}

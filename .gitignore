@@ -1,0 +1,23 @@
+# Secrets
+.env
+
+# Runtime state
+.jaato/logs/
+.jaato/sessions/
+.jaato/backups/
+.jaato/templates/
+.jaato/services.bak/
+.jaato/gc.json
+.jaato/instructions/
+.jaato/zhipuai_auth.json
+
+# Claude Code
+.claude/
+
+# Worker workspaces (created at runtime)
+DAR-*/
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
