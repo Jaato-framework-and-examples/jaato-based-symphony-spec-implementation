@@ -11,6 +11,7 @@
     "webhook",
     "service_connector",
     "subagent",
+    "event_bus",
     "prompt_library (preload)",
     "todo"
   ],
