@@ -71,14 +71,10 @@ Create a label called `symphony` (or your preferred trigger label) in your Linea
 Start the jaato server, then create a session with the orchestrator profile:
 
 ```bash
-# Source environment variables first
-source .env
-
 # Start the server
 jaato-server
 
-# In another terminal (also source .env)
-source .env
+# In another terminal
 jaato --profile symphony-orchestrator -i "%symphony-orchestrator project_slug=MY-PROJECT workspace_root=~/code/workspaces max_concurrent_agents=5"
 ```
 
