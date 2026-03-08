@@ -81,7 +81,7 @@ jaato --profile symphony-orchestrator -i "%symphony-orchestrator project_slug=MY
 The orchestrator will:
 1. Verify the Linear API connection
 2. Start the webhook listener on port 9100
-3. Subscribe to events on the shared TaskEventBus — then wait for issues (no polling)
+3. Subscribe to events on the core event bus via `subscribeToEvents` — then wait for issues (no polling)
 
 ## How It Works
 
